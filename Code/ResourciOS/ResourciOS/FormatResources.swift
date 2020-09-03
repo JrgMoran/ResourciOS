@@ -27,11 +27,17 @@ enum ModeGenerateFile: String {
     
     var imageBody: String { return getImageFormat().body }
     
+    var imageBodyDoc: String { return getImageFormat().bodyDoc }
+    
     var textFileName: String { return getTextFormat().fileName }
     
     var textHeader: String { return getTextFormat().header }
     
     var textBody: String { return getTextFormat().body }
+    
+    var textBodyDoc: String {
+        return getTextFormat().bodyDoc
+    }
     
     private func getTextFormat() -> ResourcesHelper {
         switch self {
@@ -64,6 +70,7 @@ enum ModeGenerateFile: String {
 protocol ResourcesHelper {
     var fileName: String { get }
     var header: String { get }
+    var bodyDoc: String { get }
     var body: String { get }
 }
 
@@ -94,18 +101,34 @@ public struct RTexts {
 %@
 }
 """
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
+    """
+    
     var body: String = "\n\tpublic static let %@: String = NSLocalizedString(\"%@\", comment: \"\")"
 }
 
 struct FormatResourcesMethodsText: ResourcesHelper {
+    
     var fileName: String = FormatTextCommons().fileName
     
     var header: String = """
     \(FormatTextCommons().header)
     public class RTexts {
-    \tstatic let shared = RTexts()
     %@
     }
+    """
+    
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
     """
     
     var body: String = "\n\tpublic func %@() -> String { return NSLocalizedString(\"%@\", comment: \"\") }"
@@ -118,9 +141,16 @@ struct FormatResourcesClassText: ResourcesHelper {
     var header: String = """
     \(FormatTextCommons().header)
     public class RTexts {
-    \tstatic let shared = RTexts()
     %@
     }
+    """
+    
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
     """
     
     var body: String = "\n\tpublic let %@: String = NSLocalizedString(\"%@\", comment: \"\")"
@@ -156,6 +186,9 @@ public struct RImages {
 %@
 }
 """
+    
+    var bodyDoc: String = ""
+    
     var body: String = "\n\tpublic static let %@: UIImage? = UIImage(named: \"%@\")"
 }
 
@@ -165,10 +198,11 @@ struct FormatResourcesMethodsImages: ResourcesHelper {
     var header: String = """
     \(FormatImageCommons().header)
     public class RImages {
-    \tstatic let shared = RImages()
     %@
     }
     """
+    
+    var bodyDoc: String = ""
     
     var body: String = "\n\tpublic func %@() -> UIImage? { return UIImage(named: \"%@\") }"
 }
@@ -179,10 +213,11 @@ struct FormatResourcesClassImages: ResourcesHelper {
     var header: String = """
     \(FormatImageCommons().header)
     public class RImages {
-    \tstatic let shared = RImages()
     %@
     }
     """
+    
+    var bodyDoc: String = ""
     
     var body: String = "\n\tpublic let %@: UIImage? = UIImage(named: \"%@\")"
 }
