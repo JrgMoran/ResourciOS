@@ -8,7 +8,7 @@
 
 import Foundation
 
-let defaultMode: ModeGenerateFile = .attributesStruct
+let defaultMode: ModeGenerateFile = .attributesClass
 
 if(CommandLine.arguments.count == 2){
     if let opcion = ModeGenerateFile.stringToModeGenerateFile(str: CommandLine.arguments.last!) {
