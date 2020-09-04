@@ -1,7 +1,7 @@
 # ResourciOS
 
-Another way of working with literals and images in swift.
-ResourciOS is a little program that finds texts and images files in your project and generates different options.
+ResourciOS is a little program that finds texts and images files in your project and generates different options. It is a different way of working with literals and images in swift.
+
 
 Download the ResourciOS executable and run with the terminal with one of the following options:
 
@@ -183,8 +183,7 @@ You can execute ResourciOS directly in XCode. In order to do that you must add a
 
 # ResourciOS - Español
 
-Otra forma de tratar los literales y las imágenes en swift.
-ResourciOS es un pequeño programa que busca los textos y las imágenes en los ficheros de tu proyecto y genera diferentes opciones de ficheros.
+ResourciOS es un pequeño programa que busca los textos y las imágenes en los ficheros de tu proyecto y genera diferentes opciones de ficheros. Es una forma diferente de trabajar con los literales y las imágenes en swift.
 
 Descarga el ejecutable ResouciOS y ejcútalo en la terminal con una de las siguientes opciones:
 
