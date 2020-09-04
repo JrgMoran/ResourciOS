@@ -190,7 +190,7 @@ struct FormatResourcesEnumsText: ResourcesHelper {
     
     var header: String = """
     \(FormatTextCommons().header)
-    public enum RTexts {
+    public enum RTexts: String {
     %@
     
         public var localized: String {
@@ -295,7 +295,7 @@ struct FormatResourcesEnumsImages: ResourcesHelper {
     
     var header: String = """
     \(FormatImageCommons().header)
-    public enum RImages {
+    public enum RImages: String {
     %@
         public var image: String {
             return UIImage(named: "ico_store")
