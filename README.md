@@ -1,6 +1,6 @@
 # ResourciOS
 
-Another way of works with literals and images in swift.
+Another way of working with literals and images in swift.
 ResourciOS is a little program that finds texts and images files in your project and generates different options.
 
 Download the ResourciOS executable and run with the terminal with one of the following options:
@@ -8,7 +8,7 @@ Download the ResourciOS executable and run with the terminal with one of the fol
 ### Options
 #### - attributesClass - default
 
-With `./ResourciOS attributesClass` command, ResourciOS creates two classes `RText` and `RImage` that look like this:
+With `./ResourciOS attributesClass` command, ResourciOS creates two classes `RText` and `RImage` that look like these:
 
 ```swift
 public class RTexts {
@@ -31,7 +31,7 @@ public class RImages {
 	public let ico_settings: UIImage? = UIImage(named: "ico_settings")
 }
 ```
-I recommend adding a new scruct `R` with singleton like that:
+I recommend adding a new scruct `R` with singleton as follows:
 ```swift
 struct R {
     static let texts = RTexts()
@@ -44,7 +44,7 @@ And our images with `imageView.image = R.image.ico_settings`
 
 #### - methods
 
-With `./ResourciOS methods` command, ResourciOS creates two classes `RText` and `RImage` with methods that look like this:
+With `./ResourciOS methods` command, ResourciOS creates two classes `RText` and `RImage` with methods that look like these:
 
 ```swift
 public class RTexts {
@@ -68,7 +68,7 @@ public class RImages {
 }
 ```
 
-I recommend adding a new scruct `R` with singleton like that:
+I recommend adding a new scruct `R` with singleton as follows:
 ```swift
 struct R {
     static let texts = RTexts()
@@ -81,7 +81,7 @@ And our images with `imageView.image = R.image.ico_settings()`
 
 #### - attributesStruct
 
-With `./ResourciOS attributesStruct` command, ResourciOS creates two structs `RText` and `RImage` with static attributes that look like this:
+With `./ResourciOS attributesStruct` command, ResourciOS creates two structs `RText` and `RImage` with static attributes that look like these:
 ```swift
 public struct RTexts {
     
@@ -109,7 +109,7 @@ And our images with `imageView.image = RImage.ico_settings`
 
 #### - staticEnums
 
-With `./ResourciOS staticEnums` command, ResourciOS creates two enums `RText` and `RImage` with static variables that look like this:
+With `./ResourciOS staticEnums` command, ResourciOS creates two enums `RText` and `RImage` with static variables that look like these:
 ```swift
 public enum RTexts {
     
@@ -137,7 +137,7 @@ And our images with `imageView.image = RImage.ico_settings`
 
 #### - enums
 
-With `./ResourciOS enums` command, ResourciOS creates two enums `RText` and `RImage` that look like this:
+With `./ResourciOS enums` command, ResourciOS creates two enums `RText` and `RImage` that look like these:
 ```swift
 public enum RTexts: String{
     
@@ -172,18 +172,18 @@ And our images with `imageView.image = RImages.ico_settings.image`
 
 
 ### Custom folders
-You can define the folder that you want generate the files if you write the path starting with `/` character.
+You can define in which folder files will be generated if you write the path starting with the `/` character.
 Example: `./ResourciOS attributesClass /folder/subfolder`
 
 
 ### One more thing
-You can execute ResourciOS directly in XCode. For it you must add a new Run Script in de build phase tab and write command.
+You can execute ResourciOS directly in XCode. In order to do that you must add a new "Run Script" in the "build phase" tab and write the desired command.
 `Build phases -> + -> new Run Script phase`
 
 
 # ResourciOS - Español
 
-Otra forma de tratar los literales y las imagenes en swift.
+Otra forma de tratar los literales y las imágenes en swift.
 ResourciOS es un pequeño programa que busca los textos y las imágenes en los ficheros de tu proyecto y genera diferentes opciones de ficheros.
 
 Descarga el ejecutable ResouciOS y ejcútalo en la terminal con una de las siguientes opciones:
@@ -354,7 +354,7 @@ Y nuestras imagenes de esta manera `imageView.image = RImages.ico_settings.image
 
 
 ### Carpeta personalizada
-Puedes definir en que carpeta se generan los archivos escribiendo la direccion de esta empezando por el caracter `/`
+Puedes definir en qué carpeta se generan los archivos escribiendo la dirección de ésta empezando por el caracter `/`
 Ejemplo: `./ResourciOS attributesClass /folder/subfolder`
 
 ### One more thing
