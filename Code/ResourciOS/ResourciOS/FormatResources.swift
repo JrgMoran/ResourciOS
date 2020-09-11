@@ -13,13 +13,8 @@ enum ModeGenerateFile: String {
     case attributesStruct
     case attributesClass
     case methods
-    
-    static func stringToModeGenerateFile(str: String) -> ModeGenerateFile? {
-        if str == ModeGenerateFile.attributesStruct.rawValue { return attributesStruct}
-        else if str == ModeGenerateFile.methods.rawValue { return methods}
-        else if str == ModeGenerateFile.attributesClass.rawValue { return attributesClass}
-        return nil
-    }
+    case staticEnums
+    case enums
     
     var imageFileName: String { return getImageFormat().fileName }
     
@@ -27,11 +22,17 @@ enum ModeGenerateFile: String {
     
     var imageBody: String { return getImageFormat().body }
     
+    var imageBodyDoc: String { return getImageFormat().bodyDoc }
+    
     var textFileName: String { return getTextFormat().fileName }
     
     var textHeader: String { return getTextFormat().header }
     
     var textBody: String { return getTextFormat().body }
+    
+    var textBodyDoc: String {
+        return getTextFormat().bodyDoc
+    }
     
     private func getTextFormat() -> ResourcesHelper {
         switch self {
@@ -43,6 +44,12 @@ enum ModeGenerateFile: String {
             
         case .attributesClass:
             return FormatResourcesClassText()
+            
+        case .staticEnums:
+            return FormatResourcesStaticEnumsText()
+            
+        case .enums:
+            return FormatResourcesEnumsText()
         }
     }
     
@@ -56,6 +63,12 @@ enum ModeGenerateFile: String {
             
         case .attributesClass:
             return FormatResourcesClassImages()
+            
+        case .staticEnums:
+            return FormatResourcesStaticEnumsImages()
+            
+        case .enums:
+            return FormatResourcesEnumsImages()
         }
     }
 
@@ -64,6 +77,7 @@ enum ModeGenerateFile: String {
 protocol ResourcesHelper {
     var fileName: String { get }
     var header: String { get }
+    var bodyDoc: String { get }
     var body: String { get }
 }
 
@@ -94,18 +108,34 @@ public struct RTexts {
 %@
 }
 """
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
+    """
+    
     var body: String = "\n\tpublic static let %@: String = NSLocalizedString(\"%@\", comment: \"\")"
 }
 
 struct FormatResourcesMethodsText: ResourcesHelper {
+    
     var fileName: String = FormatTextCommons().fileName
     
     var header: String = """
     \(FormatTextCommons().header)
     public class RTexts {
-    \tstatic let shared = RTexts()
     %@
     }
+    """
+    
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
     """
     
     var body: String = "\n\tpublic func %@() -> String { return NSLocalizedString(\"%@\", comment: \"\") }"
@@ -118,13 +148,66 @@ struct FormatResourcesClassText: ResourcesHelper {
     var header: String = """
     \(FormatTextCommons().header)
     public class RTexts {
-    \tstatic let shared = RTexts()
     %@
     }
     """
     
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
+    """
+    
     var body: String = "\n\tpublic let %@: String = NSLocalizedString(\"%@\", comment: \"\")"
     
+}
+
+struct FormatResourcesStaticEnumsText: ResourcesHelper {
+    var fileName: String = FormatTextCommons().fileName
+    
+    var header: String = """
+    \(FormatTextCommons().header)
+    public enum RTexts {
+    %@
+    }
+    """
+    
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
+    """
+    
+    var body: String = "\n\tpublic static let %@: String = NSLocalizedString(\"%@\", comment: \"\")"
+}
+
+struct FormatResourcesEnumsText: ResourcesHelper {
+    var fileName: String = FormatTextCommons().fileName
+    
+    var header: String = """
+    \(FormatTextCommons().header)
+    public enum RTexts: String {
+    %@
+    
+        public var localized: String {
+            return NSLocalizedString(self.rawValue, comment: "")
+        }
+    }
+    """
+    
+    var bodyDoc: String = """
+    
+        
+        /**
+          Matching with: %@
+        */
+    """
+    
+    var body: String = "\n\tcase %@ = \"%@\""
 }
 
 
@@ -156,6 +239,9 @@ public struct RImages {
 %@
 }
 """
+    
+    var bodyDoc: String = ""
+    
     var body: String = "\n\tpublic static let %@: UIImage? = UIImage(named: \"%@\")"
 }
 
@@ -165,10 +251,11 @@ struct FormatResourcesMethodsImages: ResourcesHelper {
     var header: String = """
     \(FormatImageCommons().header)
     public class RImages {
-    \tstatic let shared = RImages()
     %@
     }
     """
+    
+    var bodyDoc: String = ""
     
     var body: String = "\n\tpublic func %@() -> UIImage? { return UIImage(named: \"%@\") }"
 }
@@ -179,10 +266,45 @@ struct FormatResourcesClassImages: ResourcesHelper {
     var header: String = """
     \(FormatImageCommons().header)
     public class RImages {
-    \tstatic let shared = RImages()
     %@
     }
     """
     
+    var bodyDoc: String = ""
+    
     var body: String = "\n\tpublic let %@: UIImage? = UIImage(named: \"%@\")"
+}
+
+struct FormatResourcesStaticEnumsImages: ResourcesHelper {
+    var fileName: String = FormatImageCommons().fileName
+    
+    var header: String = """
+    \(FormatImageCommons().header)
+    public enum RImages {
+    %@
+    }
+    """
+    
+    var bodyDoc: String = ""
+    
+    var body: String = "\n\tpublic static let %@: UIImage? = UIImage(named: \"%@\")"
+}
+
+struct FormatResourcesEnumsImages: ResourcesHelper {
+    var fileName: String = FormatImageCommons().fileName
+    
+    var header: String = """
+    \(FormatImageCommons().header)
+    public enum RImages: String {
+    %@
+        public var image: String {
+            return UIImage(named: "ico_store")
+        }
+    }
+    """
+    
+    var bodyDoc: String = ""
+    
+    var body: String = "\n\tcase %@ = \"%@\""
+    
 }

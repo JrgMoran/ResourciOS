@@ -35,14 +35,14 @@ class GenerateFiles {
         }
     }
     var stringsPaths: Array<String> = Array()
-    var stringKeyCommited: Array<String> = Array()
+    var stringKeyCommited: Array<StringKeyValues> = Array()
     
     var assetsPaths: Array<String> = Array()
     var assetsKeyCommited: Array<String> = Array()
     
     var xcodeprojPath: String? = nil
     var appName:String = ""
-    var mode:ModeGenerateFile
+    var mode: ModeGenerateFile
     
     var textGenerated: String = ""
     var imagesGenerated: String = ""
@@ -52,8 +52,8 @@ class GenerateFiles {
         self.mode = opcion
         findFiles(from: path)
         
-        stringsPaths.forEach({generateString(ofPath: $0)})
-        textGenerated = String(format: "\(self.mode.textHeader)", textGenerated)
+        stringsPaths.forEach({catchString(ofPath: $0)})
+        generateString()
         
         assetsPaths.forEach({generateAssets(ofPath: $0)})
         imagesGenerated = String(format: "\(self.mode.imageHeader)", imagesGenerated)
@@ -95,15 +95,23 @@ class GenerateFiles {
     
     // MARK: GENERATE FIlES
     
-    private func generateString(ofPath: String){
+    private func catchString(ofPath: String){
         let dict = NSDictionary(contentsOfFile: ofPath)
-        guard let dictWrapped = dict, let keys:[String] = dictWrapped.allKeys as? [String] else { return }
-        keys.forEach { (key) in
-            if !stringKeyCommited.contains(key) {
-                textGenerated += buildWith(key: key, format: mode.textBody)
-                stringKeyCommited.append(key)
+        guard let dictWrapped = dict else { return }
+        
+        for (key, value) in dictWrapped {
+            if let key: String = key as? String, let value: String = value as? String {
+                stringKeyCommited.append(key: key, value: value)
             }
         }
+    }
+    
+    private func generateString(){
+        stringKeyCommited.forEach { skv in
+            textGenerated += builWith(values: skv.values, format: mode.textBodyDoc)
+            textGenerated += buildWith(key: skv.key, format: mode.textBody)
+        }
+        textGenerated = String(format: "\(self.mode.textHeader)", textGenerated)
     }
     
     private func generateAssets(ofPath: String){
@@ -115,12 +123,30 @@ class GenerateFiles {
         }
     }
     
-    private func buildWith(key: String, format: String)-> String {
+    private func buildWith(key: String, format: String) -> String {
         var newKey = key.replacingOccurrences(of: ".", with: "_", options: .literal, range: nil)
         newKey = newKey.replacingOccurrences(of: "-", with: "_", options: .literal, range: nil)
         newKey = newKey.replacingOccurrences(of: " ", with: "_", options: .literal, range: nil)
-        if reservedWords.contains(newKey) { newKey = "`\(newKey)`"}
+        
+        if newKey.first?.isNumber ?? true { newKey = "_\(newKey)" }
+        
+        if reservedWords.contains(newKey) { newKey = "`\(newKey)`" }
+        
+        newKey.firstInLowercased()
+        
         return String(format: format, newKey, key)
+    }
+    
+    private func builWith(values: [String], format: String) -> String {
+        var valuesStr = ""
+        values.forEach { value in
+            if valuesStr.isEmpty {
+                valuesStr += value
+            } else {
+                valuesStr += ", \(value)"
+            }
+        }
+        return String(format: format, valuesStr)
     }
 
     
@@ -161,6 +187,16 @@ extension String {
             index += 1
         }
         return num;
+    }
+    
+    private func getFirstInLowercased() -> String {
+        let first = self.first?.lowercased() ?? ""
+        let other = self.dropFirst()
+        return first + other
+    }
+
+    mutating func firstInLowercased() {
+        self = self.getFirstInLowercased()
     }
 }
 

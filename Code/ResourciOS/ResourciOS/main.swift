@@ -8,22 +8,19 @@
 
 import Foundation
 
-let defaultMode: ModeGenerateFile = .attributesStruct
+let defaultMode: ModeGenerateFile = .attributesClass
 
-if(CommandLine.arguments.count == 2){
-    if let opcion = ModeGenerateFile.stringToModeGenerateFile(str: CommandLine.arguments.last!) {
-       let _ = GenerateFiles(from: FileManager.default.currentDirectoryPath, opcion: opcion)
-    } else {
-        let _ = GenerateFiles(from: CommandLine.arguments.last!, opcion: defaultMode)
-    }
-    
-} else if(CommandLine.arguments.count == 3){
-    let _ = GenerateFiles(from: CommandLine.arguments[1], opcion: ModeGenerateFile.stringToModeGenerateFile(str: CommandLine.arguments.last!) ?? defaultMode)
-} else if(CommandLine.arguments.count == 1) {
-    
-    let _ = GenerateFiles(from: FileManager.default.currentDirectoryPath, opcion: defaultMode)
+let args = Array(CommandLine.arguments.dropFirst())
 
-} else{
+let folder: String = args.first(where: { $0.first == "/" }).map({ String($0.dropFirst()) }) ?? FileManager.default.currentDirectoryPath
+
+let opcionStr = args.first(where: { ModeGenerateFile(rawValue: $0) != nil } )
+
+let opcion: ModeGenerateFile = opcionStr != nil ? ModeGenerateFile(rawValue: opcionStr!) ?? defaultMode : defaultMode
+
+let _ = GenerateFiles(from: String(folder), opcion: opcion)
+
+if CommandLine.arguments.count > 3 {
     Info.printInfo()
 }
 

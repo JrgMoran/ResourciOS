@@ -11,6 +11,7 @@
 		7D7A0FCD240F0723001779E5 /* FormatResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A0FCA240F0723001779E5 /* FormatResources.swift */; };
 		7D7A0FCE240F0723001779E5 /* GenerateFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A0FCB240F0723001779E5 /* GenerateFiles.swift */; };
 		7D7A0FCF240F0723001779E5 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A0FCC240F0723001779E5 /* Info.swift */; };
+		7D97DE55250127C40089E746 /* StringKeyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D97DE54250127C40089E746 /* StringKeyValues.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,7 @@
 		7D7A0FCA240F0723001779E5 /* FormatResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatResources.swift; sourceTree = "<group>"; };
 		7D7A0FCB240F0723001779E5 /* GenerateFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateFiles.swift; sourceTree = "<group>"; };
 		7D7A0FCC240F0723001779E5 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		7D97DE54250127C40089E746 /* StringKeyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringKeyValues.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				7D7A0FCB240F0723001779E5 /* GenerateFiles.swift */,
 				7D7A0FCC240F0723001779E5 /* Info.swift */,
 				7D7A0FC3240F06D7001779E5 /* main.swift */,
+				7D97DE54250127C40089E746 /* StringKeyValues.swift */,
 			);
 			path = ResourciOS;
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D97DE55250127C40089E746 /* StringKeyValues.swift in Sources */,
 				7D7A0FCD240F0723001779E5 /* FormatResources.swift in Sources */,
 				7D7A0FCF240F0723001779E5 /* Info.swift in Sources */,
 				7D7A0FC4240F06D7001779E5 /* main.swift in Sources */,
