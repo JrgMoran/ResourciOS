@@ -1,22 +1,360 @@
 # ResourciOS
-Generates Structs or Classes with localizable text and image assets.
 
-# Instalation
- 1. Download the "ResourciOS" executable
- 2. Open the terminal and execute "ResourciOS" as follows:
-    -`./ResourciOS` It searches in the current directory and generate struct with static attributes.
-   - `./ResourciOS attributesStruct` It searches in the current directory and generate struct with static attributes.
-   - `./ResourciOS attributesClass` It searches in the current directory and generate singleton class with attributes.
-   - `./ResourciOS methods` It searches in the current directory and generate singleton class with static methods.
-    -`./ResourciOS <path>` attributesStruct\t It searches in the path and generate struct with static attributes.
-    -`./ResourciOS <path> methods` It searches in the path and generate struct with static attributes.
-   - `./ResourciOS <path> attributesClass` It searches in the path and generate singleton class with static attributes.
+ResourciOS is a little program that finds texts and images files in your project and generates different options. It is a different way of working with literals and images in swift.
+
+
+Download the ResourciOS executable and run with the terminal with one of the following options:
+
+### Options
+#### - attributesClass - default
+
+With `./ResourciOS attributesClass` command, ResourciOS creates two classes `RText` and `RImage` that look like these:
+
+```swift
+public class RTexts {
+
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public let accept: String = NSLocalizedString("accept", comment: "")
     
- 3. The program finds .string files and assets and generates class or struct.
- 4. Reference the files to xcode
+    /**
+      Matching with: Configuración, Settings
+    */
+	public let settings: String = NSLocalizedString("settings", comment: "")
+}
+```
+
+```swift
+public class RImages {
+
+	public let ico_settings: UIImage? = UIImage(named: "ico_settings")
+}
+```
+I recommend adding a new scruct `R` with singleton as follows:
+```swift
+struct R {
+    static let texts = RTexts()
+    static let images = RImages()
+}
+```
+By doing this, we can use our literals in this way `label.text = R.texts.accept`
+And our images with `imageView.image = R.image.ico_settings`
 
 
-# One more thing
-You can execute ResourciOS directly in XCode. This can be add new run script phases and write the command as the terminal. 
-You can also place the executable at the root of the project.
+#### - methods
 
+With `./ResourciOS methods` command, ResourciOS creates two classes `RText` and `RImage` with methods that look like these:
+
+```swift
+public class RTexts {
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public func accept() -> String { return NSLocalizedString("accept", comment: "") }
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public func settings() -> String { return NSLocalizedString("settings", comment: "") }
+}
+```
+
+```swift
+public class RImages {
+
+	public func ico_settings() -> UIImage? { return UIImage(named: "ico_settings") }
+}
+```
+
+I recommend adding a new scruct `R` with singleton as follows:
+```swift
+struct R {
+    static let texts = RTexts()
+    static let images = RImages()
+}
+```
+By doing this, we can use our literals in this way `label.text = R.texts.accept()`
+And our images with `imageView.image = R.image.ico_settings()`
+
+
+#### - attributesStruct
+
+With `./ResourciOS attributesStruct` command, ResourciOS creates two structs `RText` and `RImage` with static attributes that look like these:
+```swift
+public struct RTexts {
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public static let accept: String = NSLocalizedString("accept", comment: "")
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public static let settings: String = NSLocalizedString("settings", comment: "")
+}
+```
+
+```swift
+public struct RImages {
+
+	public static let ico_settings: UIImage? = UIImage(named: "ico_settings")
+}
+```
+By doing this, we can use our literals in this way `label.text = RTexts.accept`
+And our images with `imageView.image = RImage.ico_settings`
+
+
+#### - staticEnums
+
+With `./ResourciOS staticEnums` command, ResourciOS creates two enums `RText` and `RImage` with static variables that look like these:
+```swift
+public enum RTexts {
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public static let accept: String = NSLocalizedString("accept", comment: "")
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public static let settings: String = NSLocalizedString("settings", comment: "")
+}
+```
+
+```swift
+public enum RImages {
+
+	public static let ico_settings: UIImage? = UIImage(named: "ico_settings")
+}
+```
+
+By doing this, we can use our literals in this way `label.text = RTexts.accept`
+And our images with `imageView.image = RImage.ico_settings`
+
+#### - enums
+
+With `./ResourciOS enums` command, ResourciOS creates two enums `RText` and `RImage` that look like these:
+```swift
+public enum RTexts: String{
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	case accept = "accept"
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	case settings = "settings"
+
+	public var localized: String {
+        return NSLocalizedString(self.rawValue, comment: "")
+    }
+}
+```
+
+```swift
+public enum RImages {
+
+	case ico_settings = "ico_settings"
+
+	public var image: UIImage? {
+        return UIImage(named: "ico_store")
+    }
+}
+```
+By doing this, we can use our literals in this way `label.text = RTexts.accept.localized`
+And our images with `imageView.image = RImages.ico_settings.image`
+
+
+### Custom folders
+You can define in which folder files will be generated if you write the path starting with the `/` character.
+Example: `./ResourciOS attributesClass /folder/subfolder`
+
+
+### One more thing
+You can execute ResourciOS directly in XCode. In order to do that you must add a new "Run Script" in the "build phase" tab and write the desired command.
+`Build phases -> + -> new Run Script phase`
+
+
+# ResourciOS - Español
+
+ResourciOS es un pequeño programa que busca los textos y las imágenes en los ficheros de tu proyecto y genera diferentes opciones de ficheros. Es una forma diferente de trabajar con los literales y las imágenes en swift.
+
+Descarga el ejecutable ResouciOS y ejcútalo en la terminal con una de las siguientes opciones:
+
+### Opciones
+#### - attributesClass - opción por defecto
+
+Con el comando `./ResourciOS attributesClass` crea dos clases `RText`y `RImage` que tendrán esta apariencia:
+```swift
+public class RTexts {
+
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public let accept: String = NSLocalizedString("accept", comment: "")
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public let settings: String = NSLocalizedString("settings", comment: "")
+}
+```
+
+```swift
+public class RImages {
+
+	public let ico_settings: UIImage? = UIImage(named: "ico_settings")
+}
+```
+
+Recomiendo crear un struct `R` con un singleton de ambos.
+```swift
+struct R {
+    static let texts = RTexts()
+    static let images = RImages()
+}
+```
+Con esto podemos usar nuestros literales de esta manera `label.text = R.texts.accept`
+Y nuestras imágenes de esta manera `imageView.image = R.image.ico_settings`
+
+
+#### - methods
+
+Con el comando `./ResourciOS methods` crea dos clases `RText`y `RImage` que tendrán esta apariencia:
+```swift
+public class RTexts {
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public func accept() -> String { return NSLocalizedString("accept", comment: "") }
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public func settings() -> String { return NSLocalizedString("settings", comment: "") }
+}
+```
+
+```swift
+public class RImages {
+
+	public func ico_settings() -> UIImage? { return UIImage(named: "ico_settings") }
+}
+```
+
+Recomiendo crear un struct `R` con singleton de ambos.
+```swift
+struct R {
+    static let texts = RTexts()
+    static let images = RImages()
+}
+```
+Con esto podemos usar nuestros literales de esta manera `label.text = R.texts.accept()`
+Y nuestras imágenes de esta manera `imageView.image = R.image.ico_settings()`
+
+
+#### - attributesStruct
+
+Con el comando `./ResourciOS attributesStruct` crea dos struct `RText`y `RImage` con atributos estáticos que tendrán esta apariencia:
+```swift
+public struct RTexts {
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public static let accept: String = NSLocalizedString("accept", comment: "")
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public static let settings: String = NSLocalizedString("settings", comment: "")
+}
+```
+
+```swift
+public struct RImages {
+
+	public static let ico_settings: UIImage? = UIImage(named: "ico_settings")
+}
+```
+Con esto podemos usar nuestros literales de esta manera `label.text = RTexts.accept`
+Y nuestras imágenes de esta manera `imageView.image = RImages.ico_settings`
+
+
+#### - staticEnums
+
+Con el comando `./ResourciOS staticEnums` crea dos enums `RText`y `RImage` con variables estáticas que tendrán esta apariencia:
+```swift
+public enum RTexts {
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	public static let accept: String = NSLocalizedString("accept", comment: "")
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	public static let settings: String = NSLocalizedString("settings", comment: "")
+}
+```
+
+```swift
+public enum RImages {
+
+	public static let ico_settings: UIImage? = UIImage(named: "ico_settings")
+}
+```
+Con esto podemos usar nuestros literales de esta manera `label.text = RTexts.accept`
+Y nuestras imagenes de esta manera `imageView.image = RImages.ico_settings`
+
+
+#### - enums
+
+Con el comando `./ResourciOS enums` crea dos enums `RText`y `RImage` con métodos estáticos que tendrán esta apariencia:
+```swift
+public enum RTexts: String{
+    
+    /**
+      Matching with: Aceptar, Accept
+    */
+	case accept = "accept"
+    
+    /**
+      Matching with: Configuración, Settings
+    */
+	case settings = "settings"
+
+	public var localized: String {
+        return NSLocalizedString(self.rawValue, comment: "")
+    }
+}
+```
+
+```swift
+public enum RImages {
+
+	case ico_settings = "ico_settings"
+
+	public var image: UIImage? {
+        return UIImage(named: "ico_store")
+    }
+}
+```
+Con esto podemos usar nuestros literales de esta manera `label.text = RTexts.accept.localized`
+Y nuestras imagenes de esta manera `imageView.image = RImages.ico_settings.image`
+
+
+### Carpeta personalizada
+Puedes definir en qué carpeta se generan los archivos escribiendo la dirección de ésta empezando por el caracter `/`
+Ejemplo: `./ResourciOS attributesClass /folder/subfolder`
+
+### One more thing
+Puedes ejecutar ResourciOS directamente en XCode. Basta con añadir un script: `Build phases -> + -> new Run Script phase` y poner el comando deseado.
