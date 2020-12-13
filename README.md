@@ -1,14 +1,16 @@
 # ResourciOS
 
-ResourciOS is a little program that finds texts and images files in your project and generates different options. It is a different way of working with literals and images in swift.
+ResourciOS is a little program that finds text and image files in your project and generates different options. It is a different way of working with literals and images in Swift.
 
 
-Download the ResourciOS executable and run with the terminal with one of the following options:
+Download the ResourciOS executable and run it in the terminal with one of the methods described below.
 
-### Options
-#### - attributesClass - default
+## Options
+### - attributesClass - default
 
-With `./ResourciOS attributesClass` command, ResourciOS creates two classes `RText` and `RImage` that look like these:
+Command: `./ResourciOS attributesClass [custom-output-path]`
+
+The `attributesClass` method creates two classes `RText` and `RImage` that look as follows:
 
 ```swift
 public class RTexts {
@@ -31,20 +33,21 @@ public class RImages {
 	public let ico_settings: UIImage? = UIImage(named: "ico_settings")
 }
 ```
-I recommend adding a new scruct `R` with singleton as follows:
+I recommend adding a new struct `R` with singleton as follows:
 ```swift
 struct R {
     static let texts = RTexts()
     static let images = RImages()
 }
 ```
-By doing this, we can use our literals in this way `label.text = R.texts.accept`
-And our images with `imageView.image = R.image.ico_settings`
+By doing this, we can use our literals like this `label.text = R.texts.accept`, and our images like this `imageView.image = R.image.ico_settings`.
 
 
-#### - methods
+### - methods
 
-With `./ResourciOS methods` command, ResourciOS creates two classes `RText` and `RImage` with methods that look like these:
+Command: `./ResourciOS methods [custom-output-path]`
+
+The `methods` method creates two classes `RText` and `RImage` with methods that look as follows:
 
 ```swift
 public class RTexts {
@@ -75,13 +78,15 @@ struct R {
     static let images = RImages()
 }
 ```
-By doing this, we can use our literals in this way `label.text = R.texts.accept()`
-And our images with `imageView.image = R.image.ico_settings()`
+By doing this, we can use our literals like this `label.text = R.texts.accept()`, and our images like this `imageView.image = R.image.ico_settings()`.
 
 
 #### - attributesStruct
 
-With `./ResourciOS attributesStruct` command, ResourciOS creates two structs `RText` and `RImage` with static attributes that look like these:
+Command: `./ResourciOS attributesStruct [custom-output-path]`
+
+The `attributesStruct` method creates two structs `RText` and `RImage` with static attributes that look as follows:
+
 ```swift
 public struct RTexts {
     
@@ -103,13 +108,15 @@ public struct RImages {
 	public static let ico_settings: UIImage? = UIImage(named: "ico_settings")
 }
 ```
-By doing this, we can use our literals in this way `label.text = RTexts.accept`
-And our images with `imageView.image = RImage.ico_settings`
+By doing this, we can use our literals like this `label.text = RTexts.accept`, and our images with `imageView.image = RImage.ico_settings`.
 
 
 #### - staticEnums
 
-With `./ResourciOS staticEnums` command, ResourciOS creates two enums `RText` and `RImage` with static variables that look like these:
+Command: `./ResourciOS staticEnums [custom-output-path]`
+
+The `staticEnums` method creates two enums `RText` and `RImage` with static variables that look as follows:
+
 ```swift
 public enum RTexts {
     
@@ -132,12 +139,14 @@ public enum RImages {
 }
 ```
 
-By doing this, we can use our literals in this way `label.text = RTexts.accept`
-And our images with `imageView.image = RImage.ico_settings`
+By doing this, we can use our literals like this `label.text = RTexts.accept`, and our images with `imageView.image = RImage.ico_settings`.
 
 #### - enums
 
-With `./ResourciOS enums` command, ResourciOS creates two enums `RText` and `RImage` that look like these:
+Command: `./ResourciOS enums [custom-output-path]`
+
+The `enums` method creates two enums `RText` and `RImage` that look as follows:
+
 ```swift
 public enum RTexts: String{
     
@@ -167,23 +176,22 @@ public enum RImages {
     }
 }
 ```
-By doing this, we can use our literals in this way `label.text = RTexts.accept.localized`
-And our images with `imageView.image = RImages.ico_settings.image`
+By doing this, we can use our literals like this `label.text = RTexts.accept.localized`, and our images with `imageView.image = RImages.ico_settings.image`.
 
 
 ### Custom folders
-You can define in which folder files will be generated if you write the path starting with the `/` character.
+You can tell ResourciOS in which folder to put the generated files if you write the path starting with the `/` character.
 Example: `./ResourciOS attributesClass /folder/subfolder`
 
 
-### One more thing
-You can execute ResourciOS directly in XCode. In order to do that you must add a new "Run Script" in the "build phase" tab and write the desired command.
+### Use ResourciOS in XCode
+You can execute ResourciOS directly in XCode. In order to do that you only have to add a new "Run Script" in the "build phase" tab and write the desired command.
 `Build phases -> + -> new Run Script phase`
 
 
 # ResourciOS - Español
 
-ResourciOS es un pequeño programa que busca los textos y las imágenes en los ficheros de tu proyecto y genera diferentes opciones de ficheros. Es una forma diferente de trabajar con los literales y las imágenes en swift.
+ResourciOS es un pequeño programa que busca los textos y las imágenes en los ficheros de tu proyecto y genera diferentes opciones de ficheros. Es una forma diferente de trabajar con los literales y las imágenes en Swift.
 
 Descarga el ejecutable ResouciOS y ejcútalo en la terminal con una de las siguientes opciones:
 
@@ -356,5 +364,5 @@ Y nuestras imagenes de esta manera `imageView.image = RImages.ico_settings.image
 Puedes definir en qué carpeta se generan los archivos escribiendo la dirección de ésta empezando por el caracter `/`
 Ejemplo: `./ResourciOS attributesClass /folder/subfolder`
 
-### One more thing
+### Usar ResourciOS en XCode
 Puedes ejecutar ResourciOS directamente en XCode. Basta con añadir un script: `Build phases -> + -> new Run Script phase` y poner el comando deseado.
